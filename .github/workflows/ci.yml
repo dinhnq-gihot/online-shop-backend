@@ -14,7 +14,7 @@ env:
 jobs:
   docker:
     name: Build and push Docker image
-    runs-on: ubuntu-cloud-runner
+    runs-on: self-hosted
     timeout-minutes: 60
 
     steps:

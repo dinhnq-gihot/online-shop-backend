@@ -23,7 +23,7 @@ jobs:
     if: |
       always() &&
       (needs.ci.result == 'success' || needs.ci.result == 'cancelled')     
-    runs-on: ubuntu-cloud-runner
+    runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
