@@ -18,7 +18,7 @@ services:
       /bin/bash -c " /opt/mssql/bin/sqlservr & sleep 15 && /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P Strong@Passw0rd -i /table-init.sql && /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P Strong@Passw0rd -i /data-init.sql && tail -f /dev/null "
 
   backend:
-    image: ghcr.io/dinhnq-gihot/online-shop-backend:latest # Use the Docker image you mentioned
+    image: ghcr.io/dinhnq-gihot/online-shop-backend:${IMAGE_VERSION} # Use the Docker image you mentioned
     container_name: online-shop-backend
     ports:
       - "5214:5214" # Map host port 5214 to container port 5214
