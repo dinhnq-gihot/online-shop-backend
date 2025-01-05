@@ -20,15 +20,12 @@ jobs:
     steps:
       - name: Print repository name
         run: echo "RepositoryName:${{ github.repository }}"
-        
-      - name: GITHUB_REPOSITORY
-        run: echo "RepositoryName:${{ GITHUB_REPOSITORY }}"
 
       - name: GITHUB_REF_TYPE
-        run: echo "${{GITHUB_REF_TYPE}}"
+        run: echo "${{github.ref_name}}"
 
       - name: GITHUB_SHA
-        run: echo "${{GITHUB_SHA}}"
+        run: echo "${{github.sha}}"
       # - name: Checkout repository
       #   uses: actions/checkout@v4
 
