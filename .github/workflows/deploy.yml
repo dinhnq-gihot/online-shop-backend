@@ -30,3 +30,9 @@ jobs:
       
       - name: print
         run: echo "deploy"
+
+      - name: GITHUB_REF_TYPE
+        run: echo "${{github.ref_name}}"
+
+      - name: GITHUB_SHA
+        run: echo "${{github.sha}}"
