@@ -43,7 +43,7 @@ jobs:
       - name: Deploy to server
         run: |
           # Pull the new image
-          docker pull ${{ env.REGISTRY }}/${{ github.repository }}:${{ IMAGE_VERSION }}
+          docker pull ${{ env.REGISTRY }}/${{ github.repository }}:${{ env.IMAGE_VERSION }}
 
           # Remove all containers in docker compose
           docker compose -f ./docker/docker-compose.yaml down
