@@ -40,6 +40,10 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}:${{ github.ref_name }}_${{ github.sha }}
+          # tags: ${{ env.REGISTRY }}/${{ github.repository }}:${{ github.ref_name }}_${{ github.sha }}
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}:latest
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ github.repository }}:buildcache
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ github.repository }}:buildcache,mode=max 
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ github.repository }}:buildcache,mode=max
+
+      - name: Clean up old images
+        run: docker image prune -f
