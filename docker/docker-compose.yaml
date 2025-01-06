@@ -19,6 +19,8 @@ services:
 
   backend:
     image: ghcr.io/dinhnq-gihot/online-shop-backend:${IMAGE_VERSION} # Use the Docker image you mentioned
+    depends_on:
+      - mssql
     container_name: online-shop-backend
     ports:
       - "5214:5214" # Map host port 5214 to container port 5214
