@@ -1,31 +1,31 @@
 version: '3.9' # Specify the version of Docker Compose
 
 services:
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
-    container_name: mssql-container
-    restart: always
-    ports:
-      - "1433:1433"
-    environment:
-      SA_PASSWORD: "Strong@Passw0rd" # Replace with your own strong password
-      ACCEPT_EULA: "Y"
-    volumes:
-      - ./table-init.sql:/table-init.sql:ro
-      - ./data-init.sql:/data-init.sql:ro
-      - mssql-data:/var/opt/mssql
-    entrypoint: >
-      /bin/bash -c " /opt/mssql/bin/sqlservr & sleep 15 && /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P Strong@Passw0rd -i /table-init.sql && /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P Strong@Passw0rd -i /data-init.sql && tail -f /dev/null "
+  # mssql:
+  #   image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+  #   container_name: mssql-container
+  #   restart: always
+  #   ports:
+  #     - "1433:1433"
+  #   environment:
+  #     SA_PASSWORD: "Strong@Passw0rd" # Replace with your own strong password
+  #     ACCEPT_EULA: "Y"
+  #   volumes:
+  #     - ./table-init.sql:/table-init.sql:ro
+  #     - ./data-init.sql:/data-init.sql:ro
+  #     - mssql-data:/var/opt/mssql
+  #   entrypoint: >
+  #     /bin/bash -c " /opt/mssql/bin/sqlservr & sleep 15 && /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P Strong@Passw0rd -i /table-init.sql && /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P Strong@Passw0rd -i /data-init.sql && tail -f /dev/null "
 
   backend:
-    image: ghcr.io/dinhnq-gihot/online-shop-backend:${IMAGE_VERSION} # Use the Docker image you mentioned
-    depends_on:
-      - mssql
+    image: ghcr.io/dinhnq-gihot/online-shop-backend:latest # Use the Docker image you mentioned
+    # depends_on:
+    #   - mssql
     container_name: online-shop-backend
     ports:
       - "5214:5214" # Map host port 5214 to container port 5214
     restart: always # Restart policy
 
-volumes:
-  mssql-data:
-    driver: local
+# volumes:
+#   mssql-data:
+#     driver: local
