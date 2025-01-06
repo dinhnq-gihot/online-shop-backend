@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: online-shop-backend-deployment
+  labels:
+    app: online-shop-backend
+  namespace: online-shop
+spec:
+  selector:
+    matchLabels:
+      app: online-shop-backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: online-shop-backend
+    spec:
+      imagePullSecrets:
+        - name: auth-registry
+      containers:
+        - name: online-shop-backend
+          image: ghcr.io/dinhnq-gihot/online-shop-backend:latest
+          ports:
+            - containerPort: 5214
+          resources:
+            requests:
+                memory: 256Mi
+          imagePullPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: online-shop-backend-service
+  namespace: online-shop
+spec: 
+  selector:
+    app: online-shop-backend
+  ports:
+    - protocol: TCP
+      port: 5214
+      targetPort: 5214
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: online-shop-backend-ingress
+    namespace: online-shop
+spec:
+    ingressClassName: nginx
+    rules:
+    - host: api-online-shop.devopsedu.vn
+      http:
+        paths:
+            - pathType: Prefix
+              backend:
+                service:
+                    name: online-shop-backend-service
+                    port:
+                        number: 5214
+              path: /
