@@ -8,6 +8,9 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_VERSION: latest # ${{ github.ref_name }}_${{ github.sha }}
+  GKE_CLUSTER: dinhnq-cluster-1
+  GKE_ZONE: asia-southeast1-c
+  IMAGE: static-site
 
 jobs:
   ci:
